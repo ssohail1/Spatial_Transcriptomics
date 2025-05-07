@@ -221,23 +221,4 @@ sc.tl.leiden(adata, key_added="leiden_expr_spatial_scaled", resolution = 0.5)
 # Visualize the combined data coloring the scaled combined Leiden data
 sq.pl.spatial_scatter(adata, color="leiden_expr_spatial_scaled", size=1.5)
 
-
-# repeat with top 20 PCs
-X_pca = adata.obsm["X_pca"][:, :20]  # use first 20 PCs
-X_spatial = adata.obsm["spatial"]
-
-scaler_pca = StandardScaler()
-X_pca_scaled = scaler_pca.fit_transform(X_pca)
-
-scaler_spatial = StandardScaler()
-X_spatial_scaled = scaler_spatial.fit_transform(X_spatial)
-
-X_combined = np.concatenate([X_pca_scaled, X_spatial_scaled], axis=1)
-adata.obsm["X_expr_spatial_scaled"] = X_combined
-
-sc.pp.neighbors(adata, use_rep="X_expr_spatial_scaled")
-sc.tl.leiden(adata, key_added="leiden_expr_spatial_scaled", resolution = 0.5)
-
-#sq.pl.spatial_scatter(adata, color="leiden_expr_spatial_scaled", size=1.0)
-
-adata.uns
+adata
